@@ -23,7 +23,30 @@ class RandomWordsState extends State<RandomWords> {
   final _saved = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
-  void _pushSaved() {}
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          final tiles = _saved.map(
+            (pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile
+              .divideTiles(
+                context: context,
+                tiles: tiles,
+              )
+              .toList();
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
